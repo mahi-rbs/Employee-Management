@@ -1,0 +1,30 @@
+body{
+	/*background: linear-gradient(red, yellow);*/
+	/*background-color: green;*/
+}
+h1, h2 p{
+	/*color: white;*/
+}
+.title-header{
+	text-align: center;
+	font-weight: 600;
+	color: purple;
+}
+.cus-footer{
+	/*background-color: #3c8dbc;*/
+	/*background-color: #000;
+	color: #fff;*/
+}
+.cus-content-header{
+	/*background: linear-gradient(red, yellow);*/
+}
+.cus-main-sidebar{
+	/*background-color: green;*/
+}
+.cus-form{
+	/*background-color: purple;
+	color: white;*/
+}
+.content-wrapper{
+	/*background:linear-gradient(orange, yellow);*/
+}
