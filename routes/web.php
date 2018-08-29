@@ -24,7 +24,11 @@ Route::get('/profile', 'ProfileController@index');
 Route::post('user-management/search', 'UserManagementController@search')->name('user-management.search');
 Route::resource('user-management', 'UserManagementController');
 
-Route::resource('employee-management', 'EmployeeManagementController');
+// Route::get('employee-list/{designation?}', 'EmployeeManagementController@employeeList');
+
+Route::resource('employee-management', 'EmployeeManagementController', ['parameters' => [
+    'index' => 'designation'
+]]);
 Route::post('employee-management/search', 'EmployeeManagementController@search')->name('employee-management.search');
 
 Route::resource('system-management/designation', 'DesignationController');

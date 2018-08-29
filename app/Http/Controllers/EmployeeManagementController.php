@@ -31,17 +31,36 @@ class EmployeeManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $designation=NULL)
     {
+      if($request->designation != null){
+
+        // dd($designation);
         $employees = DB::table('employees')
-       ->leftJoin('designation', 'employees.designation', '=', 'designation.id')
-       ->leftJoin('work_place', 'employees.work_place', '=', 'work_place.id')
+        ->leftJoin('designation', 'employees.designation', '=', 'designation.id')
+        ->leftJoin('work_place', 'employees.work_place', '=', 'work_place.id')
+        ->select('employees.*', 'designation.name as designation_name', 'designation.id as designation_id', 'work_place.name as work_place')
+        ->where('designation.id', $request->designation)
+        ->paginate(10);
+    }else{
+        $employees = DB::table('employees')
+        ->leftJoin('designation', 'employees.designation', '=', 'designation.id')
+        ->leftJoin('work_place', 'employees.work_place', '=', 'work_place.id')
         ->select('employees.*', 'designation.name as designation_name', 'designation.id as designation_id', 'work_place.name as work_place')
         ->paginate(10);
-        $active = 'active';
-
-        return view('employees-mgmt/index', ['employees' => $employees, 'active' => $active]);
     }
+
+
+    $active = 'active';
+    $designations = Designation::all();
+
+
+    return view('employees-mgmt/index', ['employees' => $employees, 'active' => $active, 'designations' => $designations ]);
+}
+public function employeeList(Request $request, $designation=NULL){
+
+    dd($request->designation);
+}
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +69,7 @@ class EmployeeManagementController extends Controller
      */
     public function create()
     {
-     
+
         $wps = Work_place::all();
 
         // $countries = Country::all();
@@ -109,25 +128,25 @@ class EmployeeManagementController extends Controller
          // $employee = Employee::find($id);
 
 
-         $employee = DB::table('employees')
-         ->where('employees.id', $id)
-         ->join('work_place', 'employees.work_place', '=', 'work_place.id')
-         ->join('designation', 'employees.designation', '=', 'designation.id')
-         ->select('employees.*', 'work_place.name as work_place', 'designation.name as designation_name')
-         ->first();
-        $active = 'active';
+       $employee = DB::table('employees')
+       ->where('employees.id', $id)
+       ->join('work_place', 'employees.work_place', '=', 'work_place.id')
+       ->join('designation', 'employees.designation', '=', 'designation.id')
+       ->select('employees.*', 'work_place.name as work_place', 'designation.name as designation_name')
+       ->first();
+       $active = 'active';
       // dd($employee);
-    if ($employee == null) {
-            return redirect()->intended('/employee-management');
-        }
-        $edu_info = DB::table('employee_edu')->where('em_id', $employee->id)->get();
+       if ($employee == null) {
+        return redirect()->intended('/employee-management');
+    }
+    $edu_info = DB::table('employee_edu')->where('em_id', $employee->id)->get();
 
-        
+
         // $work_place = DB::table('state')->where('id', $employee->work_place)->first();
 
-      
+
     return view('employees-mgmt/show', ['employee' => $employee,'edu_info' => $edu_info, 'active' => 'active']);
-    }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -144,10 +163,10 @@ class EmployeeManagementController extends Controller
             return redirect()->intended('/employee-management');
         }
         $active = 'active';
-     
+
         $wps = Work_place::all();
         $designations = Designation::all();
-       
+
         return view('employees-mgmt/edit', ['employee' => $employee, 'wps' => $wps, 'designations' => $designations, 'active' => $active]);
     }
 
@@ -193,12 +212,12 @@ class EmployeeManagementController extends Controller
     public function destroy($id)
     {
       $edu_qu =  DB::table('employee_edu')->where('em_id', $id)->get();
-        if($edu_qu){
-            DB::table('employee_edu')->where('em_id', $id)->delete();
-        }
-     Employee::where('id', $id)->delete();
-     return redirect()->intended('/employee-management');
- }
+      if($edu_qu){
+        DB::table('employee_edu')->where('em_id', $id)->delete();
+    }
+    Employee::where('id', $id)->delete();
+    return redirect()->intended('/employee-management');
+}
 
     /**
      * Search state from database base on some specific constraints
@@ -243,46 +262,46 @@ class EmployeeManagementController extends Controller
      * @return \Illuminate\Http\Response
      */
      public function load($name) {
-         $path = storage_path().'/app/avatars/'.$name;
-         if (file_exists($path)) {
-            return Response::download($path);
-        }
+       $path = storage_path().'/app/avatars/'.$name;
+       if (file_exists($path)) {
+        return Response::download($path);
+    }
+}
+
+private function validateInput($request) {
+    $this->validate($request, [
+        'name' => 'required|max:60',
+        'name_bangla' => 'required|max:60',
+        'father' => 'required|max:60',
+        'mother' => 'required|max:60',
+        'pre_address' => 'required|max:120',
+        'per_address' => 'required|max:120',
+        'mobile' => 'required',
+        'nid' => 'required',
+        'designation' => 'required',
+        'work_place' => 'required',
+        'date_hired' => 'required',
+        'past_work_place' => 'required',
+        'date_resigne' => 'required',
+        'computer_skill' => 'required',
+        'email' => 'required',
+        'dob' => 'required',
+    ]);
+}
+
+private function createQueryInput($keys, $request) {
+    $queryInput = [];
+    for($i = 0; $i < sizeof($keys); $i++) {
+        $key = $keys[$i];
+        $queryInput[$key] = $request[$key];
     }
 
-    private function validateInput($request) {
-        $this->validate($request, [
-            'name' => 'required|max:60',
-            'name_bangla' => 'required|max:60',
-            'father' => 'required|max:60',
-            'mother' => 'required|max:60',
-            'pre_address' => 'required|max:120',
-            'per_address' => 'required|max:120',
-            'mobile' => 'required',
-            'nid' => 'required',
-            'designation' => 'required',
-            'work_place' => 'required',
-            'date_hired' => 'required',
-            'past_work_place' => 'required',
-            'date_resigne' => 'required',
-            'computer_skill' => 'required',
-            'email' => 'required',
-            'dob' => 'required',
-        ]);
-    }
+    return $queryInput;
+}
 
-    private function createQueryInput($keys, $request) {
-        $queryInput = [];
-        for($i = 0; $i < sizeof($keys); $i++) {
-            $key = $keys[$i];
-            $queryInput[$key] = $request[$key];
-        }
+public static function getPastWorkPlace($wpId){
+    $pastWp = Work_place::find($wpId);
 
-        return $queryInput;
-    }
-
-    public static function getPastWorkPlace($wpId){
-        $pastWp = Work_place::find($wpId);
-
-        return $pastWp;
-    }
+    return $pastWp;
+}
 }

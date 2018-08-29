@@ -43,7 +43,11 @@
                 <td>{{$pgraduation->passing_year}}</td>
                 <td>{{$pgraduation->name_inst}}</td>
                 <td>{{$pgraduation->subject}}</td>
-                <td><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$pgraduation->id)}}" class="btn btn-sm btn-info">Delete</a>
+                <td>
+                    @if(Auth::user()->role == 'Admin')
+                  <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$pgraduation->id)}}" class="btn btn-sm btn-info">Delete</a>
+                  @endif
+
                   <a href="{{url('/employee-education-edit/'.$pgraduation->id)}}" class="btn btn-info btn-sm">Edit</a>
                 </td>
               </tr>
@@ -56,7 +60,10 @@
                 <td>{{$graduation->passing_year}}</td>
                 <td>{{$graduation->name_inst}}</td>
                 <td>{{$graduation->subject}}</td>
-                <td><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$graduation->id)}}" class="btn btn-sm btn-info">Delete</a>
+                <td>
+                    @if(Auth::user()->role == 'Admin')
+                    <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$graduation->id)}}" class="btn btn-sm btn-info">Delete</a>
+                    @endif
                   <a href="{{url('/employee-education-edit/'.$graduation->id)}}" class="btn btn-info">Edit</a>
 
                 </td>
@@ -72,7 +79,11 @@
                <td>{{$hsc->passing_year}}</td>
                <td>{{$hsc->name_inst}}</td>
                <td>{{$hsc->subject}}</td>
-               <td><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$hsc->id)}}" class="btn btn-sm btn-info">Delete</a>
+               <td>
+                  @if(Auth::user()->role == 'Admin')
+                <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$hsc->id)}}" class="btn btn-sm btn-info">Delete</a>
+                @endif
+
                 <a href="{{url('/employee-education-edit/'.$hsc->id)}}" class="btn btn-info btn-sm">Edit</a>
 
               </td>
@@ -86,7 +97,11 @@
              <td>{{$ssc->passing_year}}</td>
              <td>{{$ssc->name_inst}}</td>
              <td>{{$ssc->subject}}</td>
-             <td><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$ssc->id)}}" class="btn btn-sm btn-info">Delete</a>
+             <td>
+                @if(Auth::user()->role == 'Admin')
+              <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$ssc->id)}}" class="btn btn-sm btn-info">Delete</a>
+              @endif
+
                <a href="{{url('/employee-education-edit/'.$ssc->id)}}" class="btn btn-info btn-sm">Edit</a>
              </td>
            </tr>
@@ -99,7 +114,10 @@
              <td>{{$diploma->passing_year}}</td>
              <td>{{$diploma->name_inst}}</td>
              <td>{{$diploma->subject}}</td>
-             <td><a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$diploma->id)}}" class="btn btn-sm btn-info">Delete</a>
+             <td>
+                @if(Auth::user()->role == 'Admin')
+              <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{url('/employee-education-delete/'.$diploma->id)}}" class="btn btn-sm btn-info">Delete</a>
+              @endif
               <a href="{{url('/employee-education-edit/'.$diploma->id)}}" class="btn btn-info btn-sm">Edit</a>
 
             </td>

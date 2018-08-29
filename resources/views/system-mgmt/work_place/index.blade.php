@@ -52,9 +52,11 @@
                         <a href="{{ route('work_place.edit', ['id' => $wp->id]) }}" class="btn btn-warning col-sm-3 col-xs-5 btn-margin">
                         Update
                         </a>
+                          @if(Auth::user()->role == 'Admin')
                         <button type="submit" class="btn btn-danger col-sm-3 col-xs-5 btn-margin">
                           Delete
                         </button>
+                        @endif
                     </form>
                   </td>
               </tr>

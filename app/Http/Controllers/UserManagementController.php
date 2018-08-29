@@ -56,12 +56,14 @@ class UserManagementController extends Controller
     public function store(Request $request)
     {
         $this->validateInput($request);
+
          User::create([
-            'username' => $request['username'],
+            'name' => $request['name'],
+            'role' => $request['role'],
             'email' => $request['email'],
             'password' => bcrypt($request['password']),
-            'firstname' => $request['firstname'],
-            'lastname' => $request['lastname']
+            
+            
         ]);
 
         return redirect()->intended('/user-management');
@@ -88,7 +90,7 @@ class UserManagementController extends Controller
     {
         $user = User::find($id);
         // Redirect to user list if updating user wasn't existed
-        if ($user == null || count($user) == 0) {
+        if ($user == null) {
             return redirect()->intended('/user-management');
         }
 
@@ -106,14 +108,14 @@ class UserManagementController extends Controller
     {
         $user = User::findOrFail($id);
         $constraints = [
-            'username' => 'required|max:20',
-            'firstname'=> 'required|max:60',
-            'lastname' => 'required|max:60'
+            'role' => 'required|max:20',
+            'name'=> 'required|max:60',
+            'email' => 'required|max:60'
             ];
         $input = [
-            'username' => $request['username'],
-            'firstname' => $request['firstname'],
-            'lastname' => $request['lastname']
+            'role' => $request['role'],
+            'name' => $request['name'],
+            'email' => $request['email']
         ];
         if ($request['password'] != null && strlen($request['password']) > 0) {
             $constraints['password'] = 'required|min:6|confirmed';
@@ -171,11 +173,10 @@ class UserManagementController extends Controller
     }
     private function validateInput($request) {
         $this->validate($request, [
-        'username' => 'required|max:20',
+        'role' => 'required|max:20',
         'email' => 'required|email|max:255|unique:users',
         'password' => 'required|min:6|confirmed',
-        'firstname' => 'required|max:60',
-        'lastname' => 'required|max:60'
-    ]);
+        'name' => 'required|max:60'
+       ]);
     }
 }

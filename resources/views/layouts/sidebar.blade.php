@@ -33,6 +33,8 @@
         <!-- Optionally, you can add icons to the links -->
         <li @if(Request::is('/'))class="active" @endif><a href="{{url('/')}}"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
         <li @if(Request::is('employee-management/*') || Request::is('employee-management')) class="active" @endif><a href="{{ url('employee-management') }}"><i class="fa fa-link"></i> <span>Employee Management</span></a></li>
+
+       <!--  <li><a href="{{ url('employee-list') }}"><i class="fa fa-link"></i> <span>Employee Management</span></a></li> -->
         <li  class="treeview @if(Request::is('system-management/*')) active @endif" >
           <a href="#"><i class="fa fa-link"></i> <span>System Management</span>
             <span class="pull-right-container">
