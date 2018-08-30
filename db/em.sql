@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2018 at 01:39 PM
+-- Generation Time: Aug 30, 2018 at 05:14 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -101,7 +101,7 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `name`, `name_bangla`, `father`, `mother`, `pre_address`, `per_address`, `mobile`, `nid`, `department`, `designation`, `work_place`, `past_work_place`, `date_resigne`, `computer_skill`, `email`, `dob`, `date_hired`, `picture`, `status`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(5, 'mahi', 'মাহি', 'সেলিম', 'কাম্রুন', 'ভলা', 'ভলা', '01918993427', '344', NULL, 1, '1', '1', '2018-07-03', 'আমি কিছু নাজি না', 'admin1@gmail.com', '1990-07-05', '2018-07-03', 'Mahi_300-5b67e794adb22.jpg', 1, 4, '2018-08-06 00:15:48', '2018-08-06 00:15:48', NULL),
+(5, 'মাহি', 'মাহি', 'সেলিম', 'কাম্রুন', 'ভলা', 'ভলা', '01918993427', '344', NULL, 1, '1', '1', '2018-07-03', 'আমি কিছু নাজি না', 'admin1@gmail.com', '1990-07-05', '2018-07-03', 'Mahi_300-5b67e794adb22.jpg', 1, 4, '2018-08-06 00:15:48', '2018-08-06 11:34:54', NULL),
 (6, 'amin', 'আমিন', 'জামিনa', 'ঙ্কামিনa', 'ধাকা1', 'ধাকা1', '019189934271', '০০০০০২৩২৩1', NULL, 3, '5', '1', '2018-08-20', '১২১২1', 'arifurrahman91@live.com1', '1990-06-29', '2018-07-02', '21529-5b6806ca8de9c.jpg', 1, 4, '2018-08-06 02:15:00', '2018-08-06 02:57:50', NULL);
 
 -- --------------------------------------------------------
@@ -200,6 +200,7 @@ INSERT INTO `subjects` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -211,8 +212,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'Admin', 'admin@gmail.com', '$2y$10$W7bC67Qy245PGGYGuMjddOuQBGzF3by1EKapa0z2XBP/asa9n3ggm', '2lZGBBgSISNnLlWclMEtDWgswBKnrSoljqNoUMt9xURA4IkXvUvguS91FVYx', '2018-07-31 08:32:52', '2018-07-31 08:32:52');
+INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'Admin', 'Admin', 'admin@gmail.com', '$2y$10$W7bC67Qy245PGGYGuMjddOuQBGzF3by1EKapa0z2XBP/asa9n3ggm', 'DURJjWGIVrXb8HUL3iZ9JHgSUGpW4ugRhb1APIA7Ux77zji0r4IMhc8zC59U', '2018-07-31 08:32:52', '2018-07-31 08:32:52'),
+(5, 'Arif', 'User', 'arif@gmail.com', '$2y$10$QRoHUrR9VlrgJixlA9yaYeL4OqPUakPCgmb7OdhNykIxMIR9Dnbp2', '2lZGBBgSISNnLlWclMEtDWgswBKnrSoljqNoUMt9xURA4IkXvUvguS91FVYx', '2018-07-31 08:32:52', '2018-08-29 07:40:14'),
+(6, 'mahi', 'Admin', 'maidul.tech@gmail.com', '$2y$10$3CgqqGlUnTbKkZcF3Ncjn.lMA8thpJoG7yJdTmwCQtHngQ7SVmxkC', NULL, '2018-08-29 07:29:50', '2018-08-29 07:29:50');
 
 -- --------------------------------------------------------
 
@@ -303,7 +306,7 @@ ALTER TABLE `work_place`
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `division`
@@ -345,7 +348,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `work_place`
